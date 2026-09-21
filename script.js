@@ -1,7 +1,7 @@
-///////////////////////////////////////////////////////
-//           Google Form to Discord Webhook          //
-// https://github.com/axieax/google-forms-to-discord //
-///////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+//           Google Form to Discord Webhook           //
+// https://github.com/Sebiann/google-forms-to-discord //
+////////////////////////////////////////////////////////
 
 /*
   SETUP OPTIONS
@@ -13,7 +13,7 @@ const webhookURL = "";
 const hideResponses = false;
 // [OPTIONAL]: If you want to show incomplete rows for grids and checkbox grids, change true to false below
 const hideEmptyRows = true;
-// Further setup instructions can be found at https://github.com/axieax/google-forms-to-discord/
+// Further setup instructions can be found at https://github.com/Sebiann/google-forms-to-discord/
 
 /*
   DO NOT MODIFY BELOW
@@ -27,14 +27,18 @@ const maxFields = 25;
  * Post Google Form responses to Discord Webhook
  */
 function submitPost(e) {
+
   // prepare POST request to webhook
   const formTitle = e.source.getTitle() ?? "Untitled Form";
+  // TODO: get prefill URL from the response, not the form
+  // const prefilledUrl = e.response ? e.response.toPrefilledUrl() : "Not available";
   const embed = {
     title: `✨ ${formTitle} has received a new response!`,
     footer: {
-      text: "Google Forms to Discord Automation - https://github.com/axieax",
+      text: `Google Forms to Discord Automation - https://github.com/Sebiann`,
     },
     color: 16766720,
+    timestamp: new Date().toISOString()
   };
 
   // retrieve and unpack data
@@ -58,7 +62,7 @@ function submitPost(e) {
     payload: JSON.stringify({
       username: "Response Carrier",
       avatar_url:
-        "https://github.com/axieax/google-forms-to-discord/blob/main/assets/birb.jpg?raw=true",
+        "https://github.com/Sebiann/google-forms-to-discord/blob/main/assets/birb.jpg?raw=true",
       embeds: [embed],
     }),
   };
@@ -138,8 +142,7 @@ Embed Limits (https://discord.com/developers/docs/resources/channel#embed-limits
   - Payload Fields (includes Payload Responses) - Maximum 25 responses can be displayed
   - Field Name (includes Response Question) - Maximum 256 characters
   - Total Characters (includes Embed Title, Field Names, Field Values, Footer Text) - Maximum 6000 characters
-      - https://developers.google.com/apps-script/reference/forms/form-response#toprefilledurl
+  - https://developers.google.com/apps-script/reference/forms/form-response#toprefilledurl
 Regex?
-Date format
 Extend ellipsis
 */
